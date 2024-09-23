@@ -84,7 +84,7 @@ public:
     }
 
     //--------------------------------------------------------------
-    // adds
+    // calculates the face normals for each triangle in the mesh
     void calculateNormals() {
         for (size_t i = 0; i < triangles.size(); i+=3) {
             int ind1 = triangles[i];                // get the indices of the current triangle's vertices
@@ -99,14 +99,14 @@ public:
             glm::vec3 edge2 = v2 - v1;
 
             // calculate the cross product of the two edges and normalize it
-            glm::vec3 normal = glm::normalize(glm::cross(edge1, edge2));
+            glm::vec3 normal = glm::normalize(glm::cross(edge2, edge1));
 
             faceNormals.push_back(normal);          // add the normal to faceNormals vector for storage and ease in drawing
         }
     }
 
     //--------------------------------------------------------------
-    // adds
+    // draws the face normals according to the desired length
     void drawNormals(float normalLength) {
         for (size_t i = 0; i < triangles.size(); i+=3) {
             int ind1 = triangles[i];                // get the indices of the current triangle's vertices
@@ -132,7 +132,7 @@ public:
     }
 
     //--------------------------------------------------------------
-    // adds
+    // prints the total vertices, faces, and mesh size of the structure
     void printDiagnostics() {
         size_t numVertices = vertices.size();       // total number of vertices
         size_t numFaces = triangles.size() / 3;     // total number of faces (divide by 3 because the 'triangles'
